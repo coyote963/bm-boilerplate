@@ -5,7 +5,7 @@ It uses python3.8, requiring no outside libraries
 
 ## Settings values
 
-First thing most people do when they want to run a script is to set up the settings file(`parseconfigs.py`. This boilerplate was designed with connecting to multiple servers with the same rcon password in mind. Feel free to tweak with changes. The default values were chosen from the settings in a default installation of BM2.0 (as of beta 9)
+First thing most people do when they want to run a script is to set up the settings file(`parseconfigs.py)`. This boilerplate was designed with connecting to multiple servers with the same rcon password in mind. Feel free to tweak with changes. The default values were chosen from the settings in a default installation of BM2.0 (as of beta 9)
 
 | Field  | Default   |  Description |
 | ------------ | ------------ | -----|
