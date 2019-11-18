@@ -9,9 +9,9 @@ First thing most people do when they want to run a script is to set up the setti
 
 | Field  | Default   |  Description |
 | ------------ | ------------ | -----|
-|  `ip` | 127.0.0.1  | The ip of the server you are connecting to|
+|  `ip` | `127.0.0.1`  | The ip of the server you are connecting to|
 |  `gamemode_socket` | `{'dm' : 42070}`  | The mapping of the gamemode name to its rconport|
-|  `password` | admin  | d|
+|  `password` | admin  | default password is "admin" |
 |  `blocking` | `false`  | Whether the processing continues if there is no packets incoming. best to keep this false for `set_timeout` to work|
 
 Next step is creating a list of functions that handle different server events. A helpful list of these events are on [Spasmans Github](https://github.com/Spasman/rcon_example). In the repository I created a file `exampleapp.py` that contains the typical workflow of developing a handler:
