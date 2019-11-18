@@ -9,7 +9,7 @@ Connecting to the Remote Console is done with [sockets](https://docs.python.org/
 
 ## Settings values
 
-First thing most people do when they want to run a script is to set up the settings file(`parseconfigs.py)`. This boilerplate was designed with connecting to multiple servers with the same rcon password in mind. Feel free to tweak with changes. The default values were chosen from the settings in a default installation of BM2.0 (as of beta 9)
+First thing most people do when they want to run a script is to set up the settings file(`parseconfigs.py)`. This boilerplate was designed with connecting to multiple servers with the same rcon password in mind. Feel free to tweak with changes. The default values were chosen from the settings in a default installation of BM2.0 (as of beta 9), these assume that you are hosting a server on your own machine.
 
 | Field  | Default   |  Description |
 | ------------ | ------------ | -----|
@@ -26,13 +26,10 @@ from rcontypes import rcon_event
 # import json parsing to translate server messages into JSON type
 import json
 
-#optional: add in automatic table lookup for translating PlayerID's to Player Profile + Store
-# from update_cache import get_handle_cache
-# player dict for this scope only, useful for packets that only have playerId
-# player_dict = {}
-# handle_cache = get_handle_cache(player_dict)
-
 #this is the function that gets called each time sock receives a packet.
+# event_id: the type of packet that is received for example "chat_message" or "player_death"
+# message_string: information associated with that event
+# sock: socket of the server. Use this for sending a command to the server on event
 def handle_chat(event_id, message_string, sock):
     # if passed in event_id is a chat_message, otherwise do nothing
     if event_id == rcon_event.chat_message.value:
@@ -56,13 +53,16 @@ from exampleapp import example_functions
 ...
 #start a thread with the list of functions imported from exampleapp
 threaddict[mode] = threading.Thread(target = start_parser, args = (sock, get_execute_functionlist(example_functions)))
-    
+...
+# start all the threads
+for thread in threaddict:
+    thread.start()
 ```
 
 Now everything is set. Start the server with
 `python startprocessing.py`
 ## Player Dictionary
-If for whatever reason, you want to translate playerIDs into playerProfiles (think steam, gamejolt etc), you can use the cache option. Simply import `get_player_cache` from `update_cache`. And then calling `get_player_cache(player_dict)` returns a function that can be put into the function list for making sure the playerid -> player information is always consistent. This is useful for any scripts you want to write that need to store information tied to that user, for example: a player score, or any player specific information that needs to be persisted
+If for whatever reason, you want to translate playerIDs into playerProfiles (think steam, gamejolt etc), you can use the cache option. Simply import `get_player_cache` from `update_cache`. And then calling `get_player_cache(player_dict)` returns a function that can be put into the function list for making sure the playerid -> player information is always consistent. This is useful for any scripts you want to write that need to store information tied to that user, for example: a player score, or any player specific information that needs to be persisted. You would need to event handlers in `update_cache.py`
 
 ## Expanding to more servers (advanced)
 If you want to have more servers, here is the workflow
@@ -76,6 +76,7 @@ If you want to have more servers, here is the workflow
 Common Issues:
 - Rcon is not enabled on the target server
 - Port selected is not the rcon port, but the game port
+- Server is not portforwarded
 
 ## Additional Server Commands (You can send these packets via rcon) besides the request data ones
 
