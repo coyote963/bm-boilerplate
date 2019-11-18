@@ -150,6 +150,8 @@ Common Issues:
 - Port selected is not the rcon port, but the game port
 
 ## Sending server commands
+In addition to the server commands for requesting data from the server, you can also use the following commands to mod the game. Many of them require mutators, so run an enablemutators before using them!
+
 | Server command  | Description  |
 | ------------ | ------------ |
 | aimode  | Set certain AI behavior for all bots, NPCs, etc. Ai Mode ID 0 is normal behavior, AI mode ID 1 will deactivate their AI, AI mode 2 does nothing for now. Ai mode 3 will follow the path the host sets by middle clicking their mouse. I might add more later. [Requires mutators]  |
